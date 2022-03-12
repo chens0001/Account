@@ -6,4 +6,9 @@
 
 <style lang="scss">
 @import "@/assets/styles/test.scss";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 </style>

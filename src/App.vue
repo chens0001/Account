@@ -5,7 +5,6 @@
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/color.scss";
 
 * {
   padding: 0;
@@ -15,6 +14,6 @@
 
 a {
   text-decoration: none;
-  color: $blue;
+  color: rgba(0, 0, 0, .6);
 }
 </style>

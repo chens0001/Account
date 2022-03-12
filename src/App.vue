@@ -5,10 +5,16 @@
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/test.scss";
+@import "@/assets/styles/color.scss";
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: $blue;
 }
 </style>

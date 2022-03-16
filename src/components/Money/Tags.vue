@@ -23,16 +23,21 @@ import {Component, Prop} from 'vue-property-decorator';
 @Component
 export default class Tags extends Vue {
   @Prop() dataSource: RecordItem [] | undefined;
-  selectedTags: RecordItem[] = [];
+  selectedTags: string[] = [];
 
-  toggle(itemTag: string) {
-    const index = this.selectedTags.indexOf(itemTag);
-    if(this.selectedTags.includes(itemTag)) return this.selectedTags.splice(index, 1);
-    this.selectedTags.push(itemTag);
+  toggle(tag: string) {
+    const index = this.selectedTags.indexOf(tag);
+    if (index >= 0) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(tag);
+    }
+    this.$emit('update:value', this.selectedTags);
   }
 
   addTag() {
     const name = window.prompt('请输入标签名');
+    if (!name) { return window.alert('标签名不能为空'); }
     if (name === '') {
       window.alert('标签名不能为空');
     } else if (this.dataSource) {

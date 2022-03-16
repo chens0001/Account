@@ -13,17 +13,16 @@ import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
 import Notes from '@/components/Money/FormItem.vue';
 import recordListModel from '@/modles/recordListModel';
-import tagListModel from '@/modles/tagListModel';
 import Tags from '@/components/Money/Tags.vue';
 
 const recordList = recordListModel.fetch();
-tagListModel.fetch();
 
 @Component({
   components: {Tags, Notes, Types, NumberPad},
 })
 export default class Money extends  Vue{
-  tags = tagListModel.data;
+  // @ts-ignore
+  tags = window.tagList;
   recordList: RecordItem[] = recordList;
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: '0'
@@ -38,7 +37,6 @@ export default class Money extends  Vue{
   saveRecord() {
     const recordClone: RecordItem = recordListModel.clone(this.record);
     recordClone.createdAt = new Date();
-    console.log(recordClone)
     this.recordList.push(recordClone);
   }
 

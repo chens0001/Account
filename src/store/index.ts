@@ -2,6 +2,7 @@ import  Vue from 'vue'
 import Vuex from 'vuex'
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
+import router from '@/router';
 
 Vue.use(Vuex)
 
@@ -55,8 +56,13 @@ const store = new Vuex.Store({
           break;
         }
       }
-      state.tags.splice(index, 1);
-      store.commit('saveTags');
+      if(index >= 1) {
+        state.tags.splice(index, 1);
+        store.commit('saveTags');
+        router.back();
+      } else {
+        window.alert('删除失败')
+      }
     },
     updateTag(state, tag: tag) {
       const idList = state.tags.map(item => item.id);

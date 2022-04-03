@@ -25,14 +25,11 @@ import Button from '@/components/Button.vue';
 })
 export default class EditLabel extends Vue{
 
-  beforeCreate() {
-    this.$store.commit('fetchTags')
-    this.$store.commit('findTag', this.$route.params.id)
-  }
   get tag() {
     return this.$store.state.currentTag;
   }
   created() {
+    this.$store.commit('fetchTags')
     const id = this.$route.params.id;
     this.$store.commit('findTag', id)
   }
@@ -46,12 +43,7 @@ export default class EditLabel extends Vue{
   removeTag(id: string) {
     if (this.tag) {
       this.$store.commit('removeTag', id);
-      this.goBack()
     }
-  }
-
-  goBack() {
-    this.$router.back();
   }
 };
 </script>

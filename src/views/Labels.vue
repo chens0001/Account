@@ -18,16 +18,14 @@ import {Component} from 'vue-property-decorator';
 import Button from '@/components/Button.vue';
 @Component({
   components: {Button},
-  computed: {
-    tags() {
-      return this.$store.state.tags;
-    }
-  }
 })
 export default class Labels extends Vue{
 
   beforeCreate() {
     this.$store.commit('fetchTags')
+  }
+  get tags() {
+    return this.$store.state.tags;
   }
   createTag() {
     const name = window.prompt('请输出标签名');

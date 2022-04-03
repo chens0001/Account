@@ -20,16 +20,12 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator'
 
-@Component({
-  computed: {
-    tagList() {
-      return this.$store.state.tags;
-    }
-  }
-})
+@Component
 export default class Tags extends Vue {
   selectedTags: string[] = [];
-
+  get tagList() {
+    return this.$store.state.tags;
+  }
   mounted() {
     this.$store.commit('fetchTags');
   }

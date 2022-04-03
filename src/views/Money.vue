@@ -16,16 +16,14 @@ import Tags from '@/components/Money/Tags.vue';
 
 @Component({
   components: {Tags, Notes, Types, NumberPad},
-  computed: {
-    recordList() {
-      return this.$store.state.recordList
-    },
-  }
 })
 export default class Money extends  Vue{
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: '0'
   };
+  get recordList() {
+    return this.$store.state.recordList
+  }
   mounted() {
     this.$store.commit('fetchTags')
   }

@@ -5,11 +5,18 @@ import createId from '@/lib/createId';
 
 Vue.use(Vuex)
 
+type rootState = {
+  recordList : RecordItem[]
+  tags: tag[]
+  currentTag?: tag
+}
+
 const store = new Vuex.Store({
   state: {
-    recordList: [] as RecordItem[],
-    tags: [] as tag[]
-  },
+    recordList: [],
+    tags: [],
+    currentTag: undefined
+  } as rootState,
   mutations: {
     fetchRecordList (state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
@@ -36,6 +43,35 @@ const store = new Vuex.Store({
     },
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tags));
+    },
+    findTag(state, id: string) {
+      state.currentTag = state.tags.filter(t => t.id === id)[0];
+    },
+    removeTag(state, id: string) {
+      let index = -1;
+      for (let i = 0; i < state.tags.length; i++) {
+        if (state.tags[i].id === id) {
+          index = i;
+          break;
+        }
+      }
+      state.tags.splice(index, 1);
+      store.commit('saveTags');
+    },
+    updateTag(state, tag: tag) {
+      const idList = state.tags.map(item => item.id);
+      if (idList.indexOf(tag.id) >= 0) {
+        const names = state.tags.map(item => item.name);
+        if (names.indexOf(tag.name) >= 0) {
+          return 'duplicated';
+        } else {
+          const tagItem = state.tags.filter(item => item.id === tag.id)[0];
+          tagItem.name = tag.name;
+          store.commit('saveTags')
+        }
+      } else {
+        return 'not found';
+      }
     },
   }
 })

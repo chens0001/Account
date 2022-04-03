@@ -56,13 +56,14 @@ const store = new Vuex.Store({
           break;
         }
       }
-      if(index >= 1) {
+      if (index >= 0) {
         state.tags.splice(index, 1);
         store.commit('saveTags');
         router.back();
       } else {
-        window.alert('删除失败')
+        window.alert('删除失败');
       }
+
     },
     updateTag(state, tag: tag) {
       const idList = state.tags.map(item => item.id);

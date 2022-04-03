@@ -17,17 +17,23 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Button from '@/components/Button.vue';
 @Component({
-  components: {Button}
+  components: {Button},
+  computed: {
+    tags() {
+      return this.$store.state.tags;
+    }
+  }
 })
 export default class Labels extends Vue{
-  // @ts-ignore
-  tags = window.tagList;
 
+  beforeCreate() {
+    this.$store.commit('fetchTags')
+  }
   createTag() {
     const name = window.prompt('请输出标签名');
     if (name) {
-      // @ts-ignore
-      window.createTag(name);
+      console.log('11')
+      this.$store.commit('createTag', name)
     }
   }
 };

@@ -11,13 +11,6 @@ type tag = {
 	id: string
 }
 
-interface window {
-	tagList: tag []
-	createTag: (name: string) => void
-	updateTag: (id: string, name: string) => Tag
-}
-
-
 type tagListModel = {
 	data: tag[]
 	save: () => void

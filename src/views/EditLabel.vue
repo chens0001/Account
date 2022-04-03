@@ -29,24 +29,26 @@ export default class EditLabel extends Vue{
   created() {
     const id = this.$route.params.id;
     //@ts-ignore
-    this.tag = window.findTag(id);
+    //todo
+    //this.tag = store.findTag(id);
   }
 
   update(name: string) {
     if (this.tag) {
       //@ts-ignore
-      window.updateTag(this.$route.params.id, name);
+      store.updateTag(this.$route.params.id, name);
     }
   }
 
   removeTag(id: string) {
     if (this.tag) {
       // @ts-ignore
-      if (window.removeTag(id)) {
-        this.$router.back();
-      } else {
-        window.alert('删除失败');
-      }
+      // todo
+      // if (store.removeTag(id)) {
+      //   this.$router.back();
+      // } else {
+      //   window.alert('删除失败');
+      // }
     }
   }
 

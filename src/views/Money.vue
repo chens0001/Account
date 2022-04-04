@@ -6,7 +6,7 @@
     <Tags />
   </Layout>
 </template>
-<script lang='ts'>
+<script  lang='ts'>
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import NumberPad from '@/components/Money/NumberPad.vue';

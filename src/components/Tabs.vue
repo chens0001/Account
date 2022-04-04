@@ -5,6 +5,7 @@
       :key="item.value"
       :class="liClass(item)"
       class="tab-item"
+      :style="{height: height}"
       @click="selectType(item)"
     >
       {{item.text}}
@@ -21,6 +22,7 @@ export default class Tabs extends Vue {
   @Prop({required: true, type: Array}) dataSource!: DataSourceItem[];
   @Prop(String) readonly value!: string;
   @Prop(String) classPrefix!:string;
+  @Prop({type: String, default: '64px'}) height!:string;
 
   selectType(type: DataSourceItem) {
     this.$emit('update:value',type.value);
@@ -43,7 +45,7 @@ export default class Tabs extends Vue {
   font-size: 24px;
   &-item {
     width: 50%;
-    height: 64px;
+    //height: 64px;
     display: flex;
     justify-content: center;
     align-items: center;

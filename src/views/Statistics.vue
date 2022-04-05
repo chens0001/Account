@@ -3,7 +3,7 @@
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type" />
     <ol v-if="result.length > 0">
       <li v-for="(group,index) in result" :key="index">
-        <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
+        <h3 class="title" >{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
         <ol>
 
           <li v-for="item in group.items"
@@ -42,7 +42,7 @@
       this.$store.commit('fetchRecordList')
     }
 
-    tagString(tags: Tag[]) {
+    tagString(tags: tag[]) {
       return tags.length === 0 ? '无' : tags.map(tag => tag.name).join(',');
     }
 
@@ -67,12 +67,12 @@
     }
     get result() {
       const {recordList} = this;
-      const newList = clone(recordList)
+      const newList = (clone(recordList) as RecordItem[])
           .filter(r => r.type === this.type)
-          .sort((a, b) => dayjs(b?.createdAt).valueOf() - dayjs(a?.createdAt).valueOf());
+          .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+      if (newList.length === 0) {return [];}
       type Result = { title: string, total?: number, items: RecordItem[] }[]
-      if (newList.length === 0) {return [] as Result ;}
-      const result: Result = [{title: dayjs(newList[0]?.createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+      const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
       for (let i = 1; i < newList.length; i++) {
         const current = newList[i];
         const last = result[result.length - 1];
@@ -82,9 +82,11 @@
           result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
         }
       }
-      result.map(group => {
+      result.map((group: { title: string, total?: number, items: RecordItem[] }) => {
         group.total = group.items.reduce((sum, item) => {
-          return sum + item.amount;
+          console.log(sum);
+          console.log(item);
+          return Number(sum) + item.amount;
         }, 0);
       });
       return result;
@@ -120,6 +122,7 @@
 }
 .title {
   @extend %item;
+  background-color: rgba(175,184,193,0.2);
 }
 .record {
   background: white;

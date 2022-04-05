@@ -2,7 +2,7 @@ type RecordItem = {
 	tags: tag[]
 	notes: string
 	type: string
-	amount: string
+	amount: number
 	createdAt?: string
 }
 
